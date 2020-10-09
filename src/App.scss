@@ -1,0 +1,287 @@
+@import "styles/fonts";
+@import "styles/mui";
+@import "styles/margins";
+@import "styles/colors";
+@import "styles/common";
+@import "styles/charts";
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "IBM Plex Sans", "Open Sans", sans-serif;
+  background-size: 40px 40px;
+  background-color: #f0f2f5;
+  background-image: linear-gradient(
+      to right,
+      rgba(200, 200, 200, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(200, 200, 200, 0.1) 1px, transparent 1px);
+}
+
+.fullscreen {
+  height: calc(100vh - 120px);
+}
+
+.main-block {
+  background-image: url(assets/images/map.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  height: 100%;
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .logo {
+    width: 9rem;
+  }
+  .main-grid-item {
+    padding-top: 80px;
+  }
+}
+
+.ticker-main-text {
+  font-size: 2.125rem;
+  font-weight: bold;
+  color: #444444;
+  line-height: 1;
+}
+.ticker-main-text-sm {
+  font-size: 1.25rem;
+  color: #444444;
+  font-weight: 600;
+}
+
+.ticker-percentage {
+  font-size: $font-size-three;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  color: #707070;
+}
+
+.ticker-percentage-sm {
+  font-size: $font-size-one;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.ticker-small-text {
+  font-size: $font-size-two;
+  color: #707070;
+}
+
+.ticker-small-text-sm {
+  font-size: 12px;
+  color: #707070;
+}
+
+.ticker-percentage .MuiSvgIcon-root {
+  display: inline-flex;
+  vertical-align: middle;
+  font-size: 2rem;
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+}
+
+.mt50 {
+  margin-top: 5rem !important;
+}
+
+.explore {
+  width: 18rem;
+  border-radius: 1.5625rem !important;
+  font-size: 1.125rem !important;
+  box-shadow: 0px 3px 1px -2px $primary, 0px 2px 2px 0px $primary,
+    0px 1px 5px 0px $primary !important;
+  &:hover {
+    box-shadow: 0px 3px 4px -2px $light, 0px 2px 6px 0px $light,
+      0px 1px 10px 0px $light !important;
+  }
+}
+
+.main-card {
+  .MuiCardContent-root {
+    padding-bottom: 1rem !important;
+  }
+}
+
+.Carousel-indicators-4 {
+  margin-top: -250px !important;
+  margin-left: 50px !important;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  width: 20px !important;
+}
+.Carousel-active-6 {
+  color: #f7681b !important;
+}
+
+.MuiTabs-root {
+  min-height: 2rem !important;
+}
+.MuiTab-root {
+  min-width: 0 !important;
+  padding: 0 !important;
+  margin-right: 1.5rem !important;
+  min-height: 2rem !important;
+}
+
+.MuiTab-textColorPrimary.Mui-selected {
+  color: #444444 !important;
+  font-weight: bold;
+}
+
+.PrivateTabIndicator-colorPrimary-14 {
+  background-color: #f7681b !important;
+}
+
+.tab-container {
+  margin-top: 20px;
+}
+.tab-chart-container {
+  width: 100%;
+}
+
+.tab-legend-container-sm {
+  margin-left: 10px;
+  margin-top: 100px;
+  width: 300px;
+}
+.tabpanel {
+  position: relative;
+  .tab-filter {
+    position: absolute;
+    right: 0;
+    transform: translateY(-50px);
+    top: 0;
+    z-index: 99;
+    max-width: 60%;
+    > div {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.MuiSvgIcon-fontSizeLarge {
+  font-size: 5rem !important;
+}
+
+.MuiLinearProgress-root {
+  border-radius: 2px;
+}
+
+.MuiToggleButton-root.MuiButtonBase-root {
+  display: initial !important;
+}
+
+.MinimalSelect-select-19 {
+  color: #707070 !important;
+}
+
+.MinimalSelect-icon-20 {
+  color: #222222 !important;
+}
+
+.makeStyles-paper-2 {
+  height: 100vh !important;
+  width: 820px !important;
+  border: 0px !important;
+  position: absolute;
+  right: 0;
+}
+
+.details-button {
+  transform: rotate(-90deg);
+  position: absolute !important;
+  right: 0;
+  top: 400px;
+  z-index: 1000;
+}
+
+.close-button {
+  position: absolute !important;
+  left: 0 !important;
+  top: 10px !important;
+}
+.sidebar-chart-container {
+  margin: 50px;
+}
+
+.product-card {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 20px;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.pie-container {
+  padding: 0px 50px;
+  margin-top: -50px;
+}
+.right {
+  position: absolute;
+  right: 1rem;
+}
+.closeBtn {
+  padding: 0 !important;
+}
+.no-padding {
+  padding: 0px !important;
+  min-width: 20px !important;
+}
+.selectable {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 3px;
+  span {
+    display: block;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.selectable:hover {
+  background-color: #dfdfdf;
+}
+.progress-data-grid {
+  padding: 10px;
+}
+
+.pie {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.link {
+  color: #4896e9 !important;
+  font-size: 0.75rem;
+  transition: all 0.5s;
+}
+.link:hover {
+  border-color: #4896e9;
+  &.link {
+    opacity: 1;
+    bottom: -1.5rem;
+  }
+}
+
+.ml-100 {
+  margin-left: 100px;
+}
+
+.grid-main {
+  height: 400px;
+  width: "100vw";
+}

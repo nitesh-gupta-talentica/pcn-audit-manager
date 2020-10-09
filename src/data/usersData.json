@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "email": "admin@atozwineworks.com",
+      "name": "",
+      "brand": "A to Z Wineworks",
+      "role": "CXO",
+      "managers": ["Lindsay", "Ketan", "Sam"],
+      "ordersData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/ordersData-v4.json",
+      "siteInspectionData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/siteInspection-v2.json",
+      "provonomicsData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/pools.json"
+    },
+    {
+      "email": "admin@nike.com",
+      "name": "",
+      "brand": "Nike",
+      "role": "CXO",
+      "managers": ["Dan"],
+      "ordersData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/nike-orders.json",
+      "siteInspectionData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/nike-siteinspection.json",
+      "provonomicsData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/nike-pools.json"
+    },
+    {
+      "email": "admin@pcn.com",
+      "brand": "PCN Brand",
+      "category": "Food & Beverage",
+      "data": "https://pcn-marketing-manager.s3-us-west-2.amazonaws.com/data/atoz.json"
+    }
+  ]
+}
