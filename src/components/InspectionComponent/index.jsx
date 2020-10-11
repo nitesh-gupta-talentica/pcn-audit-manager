@@ -17,17 +17,14 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import SectionComponent from "./section";
-
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -40,18 +37,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InspectionComponent = (props) => {
-  const [facilitiesData, setFacilitiesData] = useState([
-    { reviewType: "Type1", formType: "Celica", inspetionName: "Name1" },
-    { reviewType: "Type2", formType: "Mondeo", inspetionName: "Name2" },
-    { reviewType: "Type3", formType: "Boxter", inspetionName: "Name3" },
-  ]);
+  const [inspectionData, setInspectionData] = useState([]);
 
   const classes = useStyles();
   const [reviewType, setReviewType] = React.useState("");
   const [formType, setFormType] = React.useState("");
   const [facility, setFacility] = React.useState("");
   const [company, setCompany] = React.useState("");
+  const [audit, setAudit] = React.useState("");
   const [sections, setSections] = React.useState([]);
+  const [sectionData, setSectionData] = React.useState({});
 
   const handleChangeReviewType = (event) => {
     setReviewType(event.target.value);
@@ -69,6 +64,10 @@ const InspectionComponent = (props) => {
     setCompany(event.target.value);
   };
 
+  const handleChangeAudit = (event) => {
+    setAudit(event.target.value);
+  };
+
   const [openForm, setOpenForm] = React.useState(false);
 
   const handleClickOpenForm = () => {
@@ -77,6 +76,14 @@ const InspectionComponent = (props) => {
 
   const handleCloseForm = () => {
     setOpenForm(false);
+  };
+
+  const getSectionData = (key, sectionName, questions) => {
+    sectionData[key] = {
+      sectionName,
+      questions,
+    };
+    setSectionData(sectionData);
   };
 
   return (
@@ -157,40 +164,73 @@ const InspectionComponent = (props) => {
                 id="audit-name"
                 name="audit-name"
                 label="Audit name"
+                value={audit}
                 fullWidth
                 autoComplete="audit-name"
+                onChange={handleChangeAudit}
               />
             </Grid>
 
             <Divider />
             <Grid item xs={12}>
-              <Button variant="contained" color="primary" onClick={() => {
-                  setSections([...sections,<div key={Date.now()}><SectionComponent/><br/></div>]);
-              }}>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setSections([
+                    ...sections,
+                    <SectionComponent
+                      uniqueKey={Date.now()}
+                      getSectionData={getSectionData}
+                    />,
+                  ]);
+                }}
+              >
                 Add Section
               </Button>
-              <Button variant="contained" color="primary" onClick={() => {
-                  sections.pop();
+              &nbsp;
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  const section = sections.pop();
+                  delete sectionData[section.props.uniqueKey];
+                  setSectionData(sectionData);
                   setSections([...sections]);
-              }}>
+                }}
+              >
                 Remove Section
               </Button>
             </Grid>
-            {
-             sections.map(section=>{
-                 return section;
-             })
-            }
+
+            {sections.map((section) => {
+              return section;
+            })}
           </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseForm} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{
-              const section = sections[0];
-              console.log(section);
-          }} color="primary">
+          <Button
+            onClick={() => {
+              const formData = {};
+              formData["reviewType"] = reviewType;
+              formData["facility"] = facility;
+              formData["company"] = company;
+              formData["auditName"] = audit;
+              formData["formType"] = formType;
+              formData["sections"] = Object.values(sectionData);
+              console.log(formData);
+              setInspectionData([...inspectionData, formData]);
+              setSectionData({});
+              setOpenForm(false);
+
+            }}
+            color="primary"
+          >
             Submit
           </Button>
         </DialogActions>
@@ -211,7 +251,7 @@ const InspectionComponent = (props) => {
       </Grid>
       <Grid item md={12}>
         <div className="ag-theme-alpine grid-main">
-          <AgGridReact rowData={facilitiesData}>
+          <AgGridReact rowData={inspectionData}>
             <AgGridColumn
               field="reviewType"
               sortable={true}
