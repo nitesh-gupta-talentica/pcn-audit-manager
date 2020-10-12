@@ -25,6 +25,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import SectionComponent from "./section";
+import MenuComponent from "../MenuComponent";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -88,6 +89,7 @@ const InspectionFormComponent = (props) => {
 
   return (
     <Grid container>
+      <MenuComponent />
       <Dialog
         open={openForm}
         onClose={handleCloseForm}
@@ -232,7 +234,7 @@ const InspectionFormComponent = (props) => {
             }}
             color="primary"
           >
-            Submit
+            Save
           </Button>
         </DialogActions>
       </Dialog>

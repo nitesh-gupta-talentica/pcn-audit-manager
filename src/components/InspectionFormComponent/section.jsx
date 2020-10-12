@@ -22,11 +22,10 @@ const SectionComponent = (props) => {
     setQuestionData(questionData);
   };
 
-
   return (
     <div key={props.uniqueKey}>
       <Paper elevation={3} style={{ padding: 10 }} key={props.uniqueKey}>
-        <Grid container item xs={12} spacing={1}>
+        <Grid container item xs={12} md={12} spacing={1}>
           <Grid item xs={6} sm={6}>
             <TextField
               required

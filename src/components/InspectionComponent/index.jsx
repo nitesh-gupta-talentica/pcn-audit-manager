@@ -24,6 +24,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import MenuComponent from "../MenuComponent";
 import SectionComponent from "./section";
 
 const useStyles = makeStyles((theme) => ({
@@ -88,6 +89,7 @@ const InspectionComponent = (props) => {
 
   return (
     <Grid container>
+      <MenuComponent />
       <Dialog
         open={openForm}
         onClose={handleCloseForm}
@@ -174,42 +176,6 @@ const InspectionComponent = (props) => {
             </Grid>
 
             <Divider />
-            <Grid item xs={12}>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  setSections([
-                    ...sections,
-                    <SectionComponent
-                      uniqueKey={Date.now()}
-                      getSectionData={getSectionData}
-                    />,
-                  ]);
-                }}
-              >
-                Add Section
-              </Button>
-              &nbsp;
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  const section = sections.pop();
-                  delete sectionData[section.props.uniqueKey];
-                  setSectionData(sectionData);
-                  setSections([...sections]);
-                }}
-              >
-                Remove Section
-              </Button>
-            </Grid>
-
-            {sections.map((section) => {
-              return section;
-            })}
           </Grid>
         </DialogContent>
         <DialogActions>
@@ -232,13 +198,13 @@ const InspectionComponent = (props) => {
             }}
             color="primary"
           >
-            Submit
+            Save
           </Button>
         </DialogActions>
       </Dialog>
       <Grid item md={12}>
         <Typography variant="h5" align="center" component="h5">
-          New Site Inspections
+          New Site Inspection
         </Typography>
         <Box p={2}>
           <Button

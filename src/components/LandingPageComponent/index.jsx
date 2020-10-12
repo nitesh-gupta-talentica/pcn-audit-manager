@@ -13,12 +13,14 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import MenuComponent from "../MenuComponent";
 import Dialog from "@material-ui/core/Dialog";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
+import MenuIcon from "@material-ui/icons/Menu";
 // import "../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 // import "../../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -45,7 +47,13 @@ const LandingPageComponent = (props) => {
     { reviewType: "Type2", formType: "Mondeo", inspetionName: "Name2" },
     { reviewType: "Type3", formType: "Boxter", inspetionName: "Name3" },
   ]);
-
+  const [open, setOpen] = React.useState(false);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
   const [openForm, setOpenForm] = React.useState(false);
 
   const handleClickOpenForm = () => {
@@ -59,6 +67,7 @@ const LandingPageComponent = (props) => {
 
   return (
     <React.Fragment>
+      <MenuComponent />
       <Dialog
         open={openForm}
         onClose={handleCloseForm}
@@ -202,7 +211,7 @@ const LandingPageComponent = (props) => {
                 // onChange={handleDateChange}
               />
             </Grid> */}
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <Button
                   variant="contained"
@@ -212,9 +221,17 @@ const LandingPageComponent = (props) => {
                   Save
                 </Button>
               </FormControl>
-            </Grid>
+            </Grid> */}
           </Grid>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseForm} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={() => {}} color="primary">
+            Save
+          </Button>
+        </DialogActions>
       </Dialog>
 
       <Grid container>
