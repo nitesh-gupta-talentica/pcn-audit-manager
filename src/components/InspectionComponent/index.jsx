@@ -92,11 +92,13 @@ const InspectionComponent = (props) => {
         open={openForm}
         onClose={handleCloseForm}
         aria-labelledby="form-dialog-title"
+        fullWidth
+        maxWidth="lg"
       >
         <DialogTitle id="form-dialog-title">Inspection form</DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
                   Review type
@@ -113,7 +115,7 @@ const InspectionComponent = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Form type</InputLabel>
                 <Select
@@ -128,7 +130,7 @@ const InspectionComponent = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Facility</InputLabel>
                 <Select
@@ -143,7 +145,7 @@ const InspectionComponent = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={3} sm={3}>
+            <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Company</InputLabel>
                 <Select
@@ -227,7 +229,6 @@ const InspectionComponent = (props) => {
               setInspectionData([...inspectionData, formData]);
               setSectionData({});
               setOpenForm(false);
-
             }}
             color="primary"
           >
