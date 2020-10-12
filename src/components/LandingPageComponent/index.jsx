@@ -19,8 +19,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+// import "../../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+// import "../../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -65,7 +66,7 @@ const LandingPageComponent = (props) => {
         fullWidth
         maxWidth="lg"
       >
-        <DialogTitle id="form-dialog-title">Inspection form</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add Facility</DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={4}>
@@ -186,16 +187,30 @@ const LandingPageComponent = (props) => {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4}></Grid>
+            {/* <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
-                  Created Date
+                  <CalendarTodayIcon /> Created Date
                 </InputLabel>
-                <DatePicker
-                  className="MuiInputBase-input"
-                  // selected={selectedDate}
-                  // onChange={handleDateChange}
-                />
+              </FormControl>
+
+              <DatePicker
+                labelId="demo-simple-select-label"
+                className="MuiInputBase-input"
+                // selected={selectedDate}
+                // onChange={handleDateChange}
+              />
+            </Grid> */}
+            <Grid item xs={12} sm={4}>
+              <FormControl className={classes.formControl}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  // onClick={() => handleClickOpenForm()}
+                >
+                  Save
+                </Button>
               </FormControl>
             </Grid>
           </Grid>
@@ -203,6 +218,11 @@ const LandingPageComponent = (props) => {
       </Dialog>
 
       <Grid container>
+        <Grid item md={12}>
+          <Typography variant="h5" align="center" component="h5">
+            Add Facilities
+          </Typography>
+        </Grid>
         <Grid item md={12}>
           <Box p={2}>
             <Button
@@ -213,6 +233,11 @@ const LandingPageComponent = (props) => {
               Add Facility
             </Button>
           </Box>
+          <Grid item md={12}>
+            <Typography variant="h6" align="center" component="h6">
+              Facilities
+            </Typography>
+          </Grid>
           <div className="ag-theme-alpine grid-main">
             <AgGridReact rowData={facilitiesData}>
               <AgGridColumn

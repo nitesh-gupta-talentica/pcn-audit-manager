@@ -29,14 +29,14 @@ import SectionComponent from "./section";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 200,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
 }));
 
-const InspectionComponent = (props) => {
+const InspectionFormComponent = (props) => {
   const [inspectionData, setInspectionData] = useState([]);
 
   const classes = useStyles();
@@ -237,8 +237,8 @@ const InspectionComponent = (props) => {
         </DialogActions>
       </Dialog>
       <Grid item md={12}>
-        <Typography variant="h4" component="h4">
-          Inspection forms
+        <Typography variant="h5" align="center" component="h5">
+          Create Inspection forms
         </Typography>
         <Box p={2}>
           <Button
@@ -249,6 +249,11 @@ const InspectionComponent = (props) => {
             Add Form
           </Button>
         </Box>
+      </Grid>
+      <Grid item md={12}>
+        <Typography variant="h6" align="center" component="h6">
+          Inspection forms
+        </Typography>
       </Grid>
       <Grid item md={12}>
         <div className="ag-theme-alpine grid-main">
@@ -284,4 +289,4 @@ const InspectionComponent = (props) => {
     </Grid>
   );
 };
-export default InspectionComponent;
+export default InspectionFormComponent;
