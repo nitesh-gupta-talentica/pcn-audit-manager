@@ -91,18 +91,21 @@ const LoginComponent = (props) => {
     setShowProgress(true);
     const user = usersData.users.filter((user) => user.email === email)[0];
     if (user) {
-      fetch(user.ordersData, { method: "GET" })
-        .then((res) => res.json())
-        .then((res) => onGetOrderData(res, user))
-        .catch((err) => console.log("Error Loggin In", err));
-      fetch(user.siteInspectionData, { method: "GET" })
-        .then((res) => res.json())
-        .then((res) => onGetSiteInspectionData(res, user))
-        .catch((err) => console.log("Error Loggin In", err));
-      fetch(user.provonomicsData, { method: "GET" })
-        .then((res) => res.json())
-        .then((res) => onGetProvonomicsData(res, user))
-        .catch((err) => console.log("Error Loggin In", err));
+      localStorage.setItem("facilitiesData", JSON.stringify([]));
+      localStorage.setItem("inspectionForms", JSON.stringify([]));
+      history.push("/");
+      // fetch(user.ordersData, { method: "GET" })
+      //   .then((res) => res.json())
+      //   .then((res) => onGetOrderData(res, user))
+      //   .catch((err) => console.log("Error Loggin In", err));
+      // fetch(user.siteInspectionData, { method: "GET" })
+      //   .then((res) => res.json())
+      //   .then((res) => onGetSiteInspectionData(res, user))
+      //   .catch((err) => console.log("Error Loggin In", err));
+      // fetch(user.provonomicsData, { method: "GET" })
+      //   .then((res) => res.json())
+      //   .then((res) => onGetProvonomicsData(res, user))
+      //   .catch((err) => console.log("Error Loggin In", err));
     }
   };
 
@@ -137,20 +140,7 @@ const LoginComponent = (props) => {
             autoComplete="current-password"
           />
           <br />
-          <Grid container>
-            <Grid item md={6}>
-              <Box m={1}>
-                <Typography variant="caption">Reference Date</Typography>
-              </Box>
-            </Grid>
-            <Grid item md={6}>
-              <DatePicker
-                className="MuiInputBase-input"
-                selected={selectedDate}
-                onChange={handleDateChange}
-              />
-            </Grid>
-          </Grid>
+
           <br />
           <Button
             type="submit"

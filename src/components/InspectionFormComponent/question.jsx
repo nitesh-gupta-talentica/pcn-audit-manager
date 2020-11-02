@@ -31,17 +31,15 @@ const QuestionComponent = (props) => {
     setQuestionType(event.target.value);
     questionData["questionType"] = event.target.value;
     setQuestionData(questionData);
-    props.getQuestionsData(props.uniqueKey,questionData);
+    props.getQuestionsData(props.uniqueKey, questionData);
   };
 
   const handleChangeQuestion = (event) => {
     setQuestion(event.target.value);
     questionData["question"] = event.target.value;
     setQuestionData(questionData);
-    props.getQuestionsData(props.uniqueKey,questionData);
+    props.getQuestionsData(props.uniqueKey, questionData);
   };
-
-  
 
   return (
     <Grid container item xs={12} spacing={1}>
@@ -55,7 +53,7 @@ const QuestionComponent = (props) => {
           onChange={handleChangeQuestion}
         />
       </Grid>
-      <Grid item xs={6} sm={6}>
+      {/* <Grid item xs={6} sm={6}>
         <FormControl className={classes.formControl}>
           <InputLabel id="demo-simple-select-label">Question type</InputLabel>
           <Select
@@ -69,7 +67,7 @@ const QuestionComponent = (props) => {
             <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </FormControl>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

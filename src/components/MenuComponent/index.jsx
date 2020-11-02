@@ -169,12 +169,12 @@ export default function MenuComponent() {
             </ListItemIcon>
             <ListItemText primary={"Inspection"} />
           </ListItem>
-          <ListItem button key={"Audit"}>
+          {/* <ListItem button key={"Audit"}>
             <ListItemIcon>
               <VerifiedUserIcon />
             </ListItemIcon>
             <ListItemText primary={"Audit"} />
-          </ListItem>
+          </ListItem> */}
         </List>
       </Drawer>
       <main

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 import {
   Box,
   Container,
@@ -11,8 +12,10 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Input,
+  TextField,
 } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+
 import MenuComponent from "../MenuComponent";
 import Dialog from "@material-ui/core/Dialog";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,11 +45,20 @@ const LandingPageComponent = (props) => {
   const history = useHistory();
   const [gridApi, setGridApi] = useState(null);
   const [gridColumnApi, setGridColumnApi] = useState(null);
-  const [facilitiesData, setFacilitiesData] = useState([
-    { reviewType: "Type1", formType: "Celica", inspetionName: "Name1" },
-    { reviewType: "Type2", formType: "Mondeo", inspetionName: "Name2" },
-    { reviewType: "Type3", formType: "Boxter", inspetionName: "Name3" },
-  ]);
+  const [formData, setFormData] = useState({
+    facilityId: "",
+    facilityName: "",
+    facilityCompany: "",
+    facilityParentCompany: "",
+    facilityType: "",
+    facilityAddress: "",
+    countryCode: "",
+    facilityContactPerson: "",
+    createdDate: "",
+  });
+  const [facilitiesData, setFacilitiesData] = useState([]);
+
+  console.log(facilitiesData);
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -54,6 +66,7 @@ const LandingPageComponent = (props) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   const [openForm, setOpenForm] = React.useState(false);
 
   const handleClickOpenForm = () => {
@@ -64,6 +77,57 @@ const LandingPageComponent = (props) => {
   const handleCloseForm = () => {
     setOpenForm(false);
   };
+
+  const handleInputChange = (field, data) => {
+    const formDataClone = JSON.parse(JSON.stringify(formData));
+    formDataClone[field] = data;
+    setFormData(formDataClone);
+  };
+
+  const handleSave = () => {
+    const facilitiesDataClone = JSON.parse(JSON.stringify(facilitiesData));
+    const formDataClone = JSON.parse(JSON.stringify(formData));
+    formDataClone.facilityId = Number.parseInt(
+      Math.random() * 100000
+    ).toString();
+    formDataClone.createdDate = moment().format("MM/DD/YYYY");
+    formDataClone.entity_name = "Nike";
+    facilitiesDataClone.push(formDataClone);
+    console.log(facilitiesDataClone);
+    setFacilitiesData(facilitiesDataClone);
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formDataClone),
+    };
+    fetch(
+      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/facilities",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {});
+
+    localStorage.setItem("facilitiesData", JSON.stringify(facilitiesDataClone));
+    handleCloseForm();
+  };
+
+  React.useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+    };
+    fetch(
+      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/facilities?company=Nike",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setFacilitiesData(data);
+        localStorage.setItem("facilitiesData", JSON.stringify(data));
+      });
+
+    console.log(facilitiesData);
+  }, []);
 
   return (
     <React.Fragment>
@@ -81,121 +145,102 @@ const LandingPageComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
-                  Review type
+                  Facility Name
                 </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
+                <Input
+                  onChange={(event) =>
+                    handleInputChange("facilityName", event.target.value)
+                  }
+                />
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Form type</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Facility Company
+                </InputLabel>
+                <Input
+                  onChange={(event) =>
+                    handleInputChange("facilityCompany", event.target.value)
+                  }
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">
+                  Facility Parent-Company
+                </InputLabel>
+                <Input
+                  onChange={(event) =>
+                    handleInputChange(
+                      "facilityParentCompany",
+                      event.target.value
+                    )
+                  }
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">
+                  Facility Type
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
+                  onChange={(event) =>
+                    handleInputChange("facilityType", event.target.value)
+                  }
                 >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
+                  <MenuItem value="Farm">Farm/Ranch/Plantation</MenuItem>
+                  <MenuItem value="Mill">Gin/Mill/Processing-Plant</MenuItem>
+                  <MenuItem value="Refinery">Refinery/Cannery/Winery</MenuItem>
+                  <MenuItem value="Factory">Factory</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
-                  Inspection Name
+                  Facility Address
                 </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
+                <Input
+                  multiline
+                  onChange={(event) =>
+                    handleInputChange("facilityAddress", event.target.value)
+                  }
+                />
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
-                  Inspection Id
+                  Country Code
                 </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
+                <Input
+                  onChange={(event) =>
+                    handleInputChange("countryCode", event.target.value)
+                  }
+                />
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
-                  Lead Inspector Name
+                  Facility Contact Person
                 </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
+                <Input
+                  onChange={(event) =>
+                    handleInputChange(
+                      "facilityContactPerson",
+                      event.target.value
+                    )
+                  }
+                />
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">
-                  Lead Inspector Company
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">
-                  Inspection Team
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">
-                  Review Level
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                >
-                  <MenuItem value={10}>R1</MenuItem>
-                  <MenuItem value={20}>R2</MenuItem>
-                  <MenuItem value={30}>R3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+
             <Grid item xs={12} sm={4}></Grid>
             {/* <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
@@ -228,7 +273,7 @@ const LandingPageComponent = (props) => {
           <Button onClick={handleCloseForm} color="primary">
             Cancel
           </Button>
-          <Button onClick={() => {}} color="primary">
+          <Button onClick={() => handleSave()} color="primary">
             Save
           </Button>
         </DialogActions>
@@ -258,49 +303,58 @@ const LandingPageComponent = (props) => {
           <div className="ag-theme-alpine grid-main">
             <AgGridReact rowData={facilitiesData}>
               <AgGridColumn
-                field="reviewType"
+                field="facility_id"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="formType"
+                field="facilityName"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="inspetionName"
+                field="facilityCompany"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="InspectionID"
+                field="facilityParentCompany"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="leadInspectorName"
+                field="facilityType"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="leadInspectorCo"
+                field="facilityAddress"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="inspectionTeam"
+                field="countryCode"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
-                field="reviewLevel"
+                field="facilityContactPerson"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
               <AgGridColumn
                 field="createdDate"
                 sortable={true}
                 filter={true}
+                resizable
               ></AgGridColumn>
             </AgGridReact>
           </div>

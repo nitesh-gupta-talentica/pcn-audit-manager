@@ -38,14 +38,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InspectionFormComponent = (props) => {
-  const [inspectionData, setInspectionData] = useState([]);
-
+  const [inspectionData, setInspectionData] = useState(
+    JSON.parse(localStorage.getItem("inspectionForms"))
+  );
   const classes = useStyles();
   const [reviewType, setReviewType] = React.useState("");
   const [formType, setFormType] = React.useState("");
   const [facility, setFacility] = React.useState("");
   const [company, setCompany] = React.useState("");
-  const [audit, setAudit] = React.useState("");
+  const [formName, setformName] = React.useState("");
   const [sections, setSections] = React.useState([]);
   const [sectionData, setSectionData] = React.useState({});
 
@@ -65,8 +66,8 @@ const InspectionFormComponent = (props) => {
     setCompany(event.target.value);
   };
 
-  const handleChangeAudit = (event) => {
-    setAudit(event.target.value);
+  const handleChangeformName = (event) => {
+    setformName(event.target.value);
   };
 
   const [openForm, setOpenForm] = React.useState(false);
@@ -87,6 +88,21 @@ const InspectionFormComponent = (props) => {
     setSectionData(sectionData);
   };
 
+  React.useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+    };
+    fetch(
+      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/forms?company=Nike",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setInspectionData(data);
+        localStorage.setItem("inspectionForms", JSON.stringify(data));
+      });
+  }, []);
+
   return (
     <Grid container>
       <MenuComponent />
@@ -100,7 +116,7 @@ const InspectionFormComponent = (props) => {
         <DialogTitle id="form-dialog-title">Inspection form</DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
                   Review type
@@ -111,12 +127,11 @@ const InspectionFormComponent = (props) => {
                   value={reviewType}
                   onChange={handleChangeReviewType}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>Inspection</MenuItem>
+                  <MenuItem value={20}>formName</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Form type</InputLabel>
@@ -126,13 +141,12 @@ const InspectionFormComponent = (props) => {
                   value={formType}
                   onChange={handleChangeFormType}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value="inspection">Inspection</MenuItem>
+                  <MenuItem value="audit">Audit</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            {/* <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">Facility</InputLabel>
                 <Select
@@ -161,17 +175,17 @@ const InspectionFormComponent = (props) => {
                   <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <TextField
                 required
-                id="audit-name"
-                name="audit-name"
-                label="Audit name"
-                value={audit}
+                id="formName-name"
+                name="formName-name"
+                label="Form Name"
+                value={formName}
                 fullWidth
-                autoComplete="audit-name"
-                onChange={handleChangeAudit}
+                autoComplete="formName-name"
+                onChange={handleChangeformName}
               />
             </Grid>
 
@@ -221,14 +235,30 @@ const InspectionFormComponent = (props) => {
           <Button
             onClick={() => {
               const formData = {};
-              formData["reviewType"] = reviewType;
-              formData["facility"] = facility;
-              formData["company"] = company;
-              formData["auditName"] = audit;
+              formData["formName"] = formName;
+              formData["form_name"] = formName;
+              formData["form_creater"] = "Nike";
               formData["formType"] = formType;
               formData["sections"] = Object.values(sectionData);
               console.log(formData);
+
+              const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+              };
+              fetch(
+                "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/forms",
+                requestOptions
+              )
+                .then((response) => response.json())
+                .then((data) => {});
+
               setInspectionData([...inspectionData, formData]);
+              localStorage.setItem(
+                "inspectionForms",
+                JSON.stringify([...inspectionData, formData])
+              );
               setSectionData({});
               setOpenForm(false);
             }}
@@ -260,18 +290,25 @@ const InspectionFormComponent = (props) => {
       <Grid item md={12}>
         <div className="ag-theme-alpine grid-main">
           <AgGridReact rowData={inspectionData}>
-            <AgGridColumn
+            {/* <AgGridColumn
               field="reviewType"
               sortable={true}
               filter={true}
-            ></AgGridColumn>
+            ></AgGridColumn> */}
             <AgGridColumn
               field="formType"
               sortable={true}
               filter={true}
+              resizable
             ></AgGridColumn>
             <AgGridColumn
-              field="auditName"
+              field="formName"
+              sortable={true}
+              filter={true}
+              resizable
+            ></AgGridColumn>
+            {/* <AgGridColumn
+              field="formName"
               sortable={true}
               filter={true}
             ></AgGridColumn>
@@ -284,7 +321,7 @@ const InspectionFormComponent = (props) => {
               field="company"
               sortable={true}
               filter={true}
-            ></AgGridColumn>
+            ></AgGridColumn> */}
           </AgGridReact>
         </div>
       </Grid>
