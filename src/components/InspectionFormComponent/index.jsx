@@ -44,6 +44,7 @@ const InspectionFormComponent = (props) => {
   const classes = useStyles();
   const [reviewType, setReviewType] = React.useState("");
   const [formType, setFormType] = React.useState("");
+  const [sectionValue, setSectionValue] = React.useState([]);
   const [facility, setFacility] = React.useState("");
   const [company, setCompany] = React.useState("");
   const [formName, setformName] = React.useState("");
@@ -71,12 +72,17 @@ const InspectionFormComponent = (props) => {
   };
 
   const [openForm, setOpenForm] = React.useState(false);
+  const [openViewForm, setOpenViewForm] = React.useState(false);
 
   const handleClickOpenForm = () => {
     setOpenForm(true);
   };
 
   const handleCloseForm = () => {
+    setSectionData({});
+    setSections([]);
+    setFormType("");
+    setformName("");
     setOpenForm(false);
   };
 
@@ -106,6 +112,60 @@ const InspectionFormComponent = (props) => {
   return (
     <Grid container>
       <MenuComponent />
+      <Dialog
+        open={openViewForm}
+        onClose={handleCloseForm}
+        aria-labelledby="form-dialog-title"
+        fullWidth
+        maxWidth="lg"
+      >
+        <DialogTitle id="form-dialog-title">Inspection form</DialogTitle>
+        <DialogContent>
+          <Grid container spacing={2}>
+            <Grid item md={4}>
+              Form Type
+            </Grid>
+            <Grid item md={8}>
+              {formType}
+            </Grid>
+            <Grid item md={4}>
+              Form Name
+            </Grid>
+            <Grid item md={8}>
+              {formName}
+            </Grid>
+            {sectionValue.map((sec, index) => {
+              return (
+                <>
+                  <Grid item md={4}>
+                    <b>Section {index + 1}</b>
+                  </Grid>
+                  <Grid item md={8}>
+                    <b>{sec.sectionName}</b>
+                  </Grid>
+                  {Object.values(sec.questions).map((que, ind) => {
+                    return (
+                      <>
+                        <Grid item md={4}>
+                          Question {ind + 1}
+                        </Grid>
+                        <Grid item md={8}>
+                          {que.questionData.question}
+                        </Grid>
+                      </>
+                    );
+                  })}
+                </>
+              );
+            })}
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenViewForm(false)} color="primary">
+            Cancel
+          </Button>{" "}
+        </DialogActions>
+      </Dialog>
       <Dialog
         open={openForm}
         onClose={handleCloseForm}
@@ -188,7 +248,6 @@ const InspectionFormComponent = (props) => {
                 onChange={handleChangeformName}
               />
             </Grid>
-
             <Divider />
             <Grid item xs={12}>
               <Button
@@ -289,7 +348,16 @@ const InspectionFormComponent = (props) => {
       </Grid>
       <Grid item md={12}>
         <div className="ag-theme-alpine grid-main">
-          <AgGridReact rowData={inspectionData}>
+          <AgGridReact
+            rowData={inspectionData}
+            rowSelection="single"
+            onRowClicked={(event) => {
+              setformName(event.api.getSelectedRows()[0].formName);
+              setFormType(event.api.getSelectedRows()[0].formType);
+              setSectionValue(event.api.getSelectedRows()[0].sections || []);
+              setOpenViewForm(true);
+            }}
+          >
             {/* <AgGridColumn
               field="reviewType"
               sortable={true}

@@ -143,6 +143,22 @@ const InspectionComponent = (props) => {
   };
 
   const handleCloseForm = () => {
+    setReviewType("");
+    setFormType(-1);
+    setFacility("");
+    setCompany("");
+    setAudit("");
+    setReviewLevel(0);
+    setStartDate(0);
+    setEndDate(0);
+    setAuditTeam("");
+    setAuditor("");
+    setAuditCompany("");
+    setScore("");
+    setResult("");
+    setNotificationDays("");
+    setCoverageDays("");
+    setSectionData("");
     setOpenForm(false);
   };
 
@@ -219,7 +235,9 @@ const InspectionComponent = (props) => {
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={facility}
+                  value={facilitiesData
+                    .map((f) => f.facilityName)
+                    .indexOf(facility)}
                   onChange={handleChangeFacility}
                 >
                   {facilitiesData.map((facility, index) => (
@@ -231,6 +249,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={company}
                 className={classes.formControl}
                 label="Company Name"
                 onChange={handleChangeCompany}
@@ -239,6 +258,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={audit}
                 className={classes.formControl}
                 id="audit-name"
                 name="audit-name"
@@ -250,6 +270,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={auditor}
                 className={classes.formControl}
                 label="Lead Inspector/Auditor Name"
                 onChange={handleChangeAuditor}
@@ -258,6 +279,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={auditCompany}
                 className={classes.formControl}
                 label="Lead Inspector/Auditor Company"
                 onChange={handleChangeAuditCompany}
@@ -266,6 +288,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={auditTeam}
                 className={classes.formControl}
                 id="audit-name"
                 name="audit-name"
@@ -280,6 +303,7 @@ const InspectionComponent = (props) => {
                   Review Level
                 </InputLabel>
                 <Select
+                  value={reviewLevel}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   onChange={handleChangeReviewLevel}
@@ -298,6 +322,7 @@ const InspectionComponent = (props) => {
                 control={
                   <Input
                     type="date"
+                    value={startDate}
                     onChange={(event) => handleStartDateChange(event)}
                   />
                 }
@@ -317,6 +342,7 @@ const InspectionComponent = (props) => {
               <FormControlLabel
                 control={
                   <Input
+                    value={endDate}
                     type="date"
                     onChange={(event) => handleEndDateChange(event)}
                   />
@@ -328,6 +354,7 @@ const InspectionComponent = (props) => {
               <TextField
                 required
                 placeholder=""
+                value={score}
                 className={classes.formControl}
                 id="audit-name"
                 name="audit-name"
@@ -341,6 +368,7 @@ const InspectionComponent = (props) => {
                 <InputLabel id="demo-simple-select-label">Result</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
+                  value={result}
                   id="demo-simple-select"
                   onChange={handleResultChange}
                 >
@@ -352,6 +380,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={coverageDays}
                 placeholder=""
                 className={classes.formControl}
                 label="Coverage Days"
@@ -361,6 +390,7 @@ const InspectionComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <TextField
                 required
+                value={notificationDays}
                 placeholder=""
                 className={classes.formControl}
                 label="Expiration Notification Days"
@@ -461,7 +491,56 @@ const InspectionComponent = (props) => {
       </Grid>
       <Grid item md={12}>
         <div className="ag-theme-alpine grid-main">
-          <AgGridReact rowData={inspections}>
+          <AgGridReact
+            rowData={inspections}
+            rowSelection="single"
+            onRowClicked={(event) => {
+              const rowData = event.api.getSelectedRows()[0];
+
+              // formData["reviewType"] = reviewType;
+              // formData["facility"] = facilitiesData[facility].facilityName;
+              // formData["company"] = company;
+              // formData["entity_name"] = "Nike";
+              // formData["audit_id"] = Number.parseInt(
+              //   Math.random() * 100000
+              // ).toString();
+              // formData["auditName"] = audit;
+              // formData["formType"] = inspectionForms[formType].formName;
+              // formData["reviewLevel"] = reviewLevel;
+              // formData["startDate"] = startDate;
+              // formData["endDate"] = endDate;
+              // formData["auditTeam"] = auditTeam;
+              // formData["auditCompany"] = auditCompany;
+              // formData["auditor"] = auditor;
+              // formData["sections"] = sections;
+              // formData["score"] = score;
+              // formData["result"] = result;
+              // formData["coverageDays"] = coverageDays;
+              // formData["notificationDays"] = notificationDays;
+
+              console.log(rowData);
+              setReviewType(rowData.reviewType);
+              setFormType(
+                inspectionForms.map((f) => f.formName).indexOf(rowData.formType)
+              );
+              setFacility(rowData.facility);
+              setCompany(rowData.company);
+              setAudit(rowData.audit);
+              setReviewLevel(rowData.reviewLevel);
+              setStartDate(rowData.startDate);
+              setEndDate(rowData.endDate);
+              setAuditTeam(rowData.auditTeam);
+              setAuditor(rowData.auditor);
+              setAuditCompany(rowData.auditCompany);
+              setScore(rowData.score);
+              setResult(rowData.result);
+              setNotificationDays(rowData.notificationDays);
+              setCoverageDays(rowData.coverageDays);
+              setSectionData(rowData.sections);
+
+              setOpenForm(true);
+            }}
+          >
             <AgGridColumn
               field="facility"
               sortable={true}
@@ -522,12 +601,12 @@ const InspectionComponent = (props) => {
               filter={true}
               resizable
             ></AgGridColumn>
-            <AgGridColumn
+            {/* <AgGridColumn
               field="sections"
               sortable={true}
               filter={true}
               resizable
-            ></AgGridColumn>
+            ></AgGridColumn> */}
             <AgGridColumn
               field="score"
               sortable={true}

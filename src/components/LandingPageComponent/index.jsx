@@ -14,7 +14,10 @@ import {
   InputLabel,
   Input,
   TextField,
+  IconButton,
 } from "@material-ui/core";
+
+import EditIcon from "@material-ui/icons/Edit";
 
 import MenuComponent from "../MenuComponent";
 import Dialog from "@material-ui/core/Dialog";
@@ -148,6 +151,7 @@ const LandingPageComponent = (props) => {
                   Facility Name
                 </InputLabel>
                 <Input
+                  value={formData.facilityName}
                   onChange={(event) =>
                     handleInputChange("facilityName", event.target.value)
                   }
@@ -160,6 +164,7 @@ const LandingPageComponent = (props) => {
                   Facility Company
                 </InputLabel>
                 <Input
+                  value={formData.facilityCompany}
                   onChange={(event) =>
                     handleInputChange("facilityCompany", event.target.value)
                   }
@@ -172,6 +177,7 @@ const LandingPageComponent = (props) => {
                   Facility Parent-Company
                 </InputLabel>
                 <Input
+                  value={formData.facilityParentCompany}
                   onChange={(event) =>
                     handleInputChange(
                       "facilityParentCompany",
@@ -187,6 +193,7 @@ const LandingPageComponent = (props) => {
                   Facility Type
                 </InputLabel>
                 <Select
+                  value={formData.facilityType}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   onChange={(event) =>
@@ -206,6 +213,7 @@ const LandingPageComponent = (props) => {
                   Facility Address
                 </InputLabel>
                 <Input
+                  value={formData.facilityAddress}
                   multiline
                   onChange={(event) =>
                     handleInputChange("facilityAddress", event.target.value)
@@ -219,6 +227,7 @@ const LandingPageComponent = (props) => {
                   Country Code
                 </InputLabel>
                 <Input
+                  value={formData.countryCode}
                   onChange={(event) =>
                     handleInputChange("countryCode", event.target.value)
                   }
@@ -231,6 +240,7 @@ const LandingPageComponent = (props) => {
                   Facility Contact Person
                 </InputLabel>
                 <Input
+                  value={formData.facilityContactPerson}
                   onChange={(event) =>
                     handleInputChange(
                       "facilityContactPerson",
@@ -301,7 +311,14 @@ const LandingPageComponent = (props) => {
             </Typography>
           </Grid>
           <div className="ag-theme-alpine grid-main">
-            <AgGridReact rowData={facilitiesData}>
+            <AgGridReact
+              rowData={facilitiesData}
+              rowSelection="single"
+              onRowClicked={(event) => {
+                setFormData(event.api.getSelectedRows()[0]);
+                handleClickOpenForm();
+              }}
+            >
               <AgGridColumn
                 field="facility_id"
                 sortable={true}
