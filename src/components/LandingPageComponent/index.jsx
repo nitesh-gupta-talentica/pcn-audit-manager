@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LandingPageComponent = (props) => {
+  const user = localStorage.getItem("user");
   const classes = useStyles();
   const history = useHistory();
   const [gridApi, setGridApi] = useState(null);
@@ -94,7 +95,7 @@ const LandingPageComponent = (props) => {
       Math.random() * 100000
     ).toString();
     formDataClone.createdDate = moment().format("MM/DD/YYYY");
-    formDataClone.entity_name = "Nike";
+    formDataClone.entity_name = user;
     facilitiesDataClone.push(formDataClone);
     console.log(facilitiesDataClone);
     setFacilitiesData(facilitiesDataClone);
@@ -120,7 +121,8 @@ const LandingPageComponent = (props) => {
       method: "GET",
     };
     fetch(
-      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/facilities?company=Nike",
+      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/facilities?company=" +
+        user,
       requestOptions
     )
       .then((response) => response.json())

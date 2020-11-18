@@ -67,7 +67,7 @@ const TermsComponent = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        requestor_service: "PM",
+        requestor_service: "Audit",
         signer_email: email,
         company_name: company,
       }),

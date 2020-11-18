@@ -1,30 +1,54 @@
 {
   "users": [
     {
-      "email": "admin@atozwineworks.com",
-      "name": "",
-      "brand": "A to Z Wineworks",
-      "role": "CXO",
-      "managers": ["Lindsay", "Ketan", "Sam"],
-      "ordersData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/ordersData-v4.json",
-      "siteInspectionData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/siteInspection-v2.json",
-      "provonomicsData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/pools.json"
-    },
-    {
       "email": "admin@nike.com",
       "name": "",
-      "brand": "Nike",
-      "role": "CXO",
-      "managers": ["Dan"],
-      "ordersData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/nike-orders.json",
-      "siteInspectionData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/nike-siteinspection.json",
-      "provonomicsData": "https://pcn-procurement-manager.s3-us-west-2.amazonaws.com/data/nike-pools.json"
+      "brand": "Nike"
     },
     {
-      "email": "admin@pcn.com",
-      "brand": "PCN Brand",
-      "category": "Food & Beverage",
-      "data": "https://pcn-marketing-manager.s3-us-west-2.amazonaws.com/data/atoz.json"
+      "email": "admin@pg.com",
+      "name": "",
+      "brand": "PG"
+    },
+    {
+      "email": "admin@clorox.com",
+      "name": "",
+      "brand": "Clorox"
+    },
+    {
+      "email": "admin@tillamook.com",
+      "name": "",
+      "brand": "Tillamook"
+    },
+    {
+      "email": "admin@kellogg.com",
+      "name": "",
+      "brand": "Kellogg"
+    },
+    {
+      "email": "admin@target.com",
+      "name": "",
+      "brand": "target"
+    },
+    {
+      "email": "admin@albertsons.com",
+      "name": "",
+      "brand": "Albert Sons"
+    },
+    {
+      "email": "admin@coca-colacompany.com",
+      "name": "",
+      "brand": "Coca Cola Company"
+    },
+    {
+      "email": "admin@smuckers.com",
+      "name": "",
+      "brand": "Smuckers"
+    },
+    {
+      "email": "admin@dole.com",
+      "name": "",
+      "brand": "Dole"
     }
   ]
 }

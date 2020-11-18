@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const InspectionComponent = (props) => {
   const [inspectionData, setInspectionData] = useState([]);
-
+  const user = localStorage.getItem("user");
   const classes = useStyles();
   const [reviewType, setReviewType] = React.useState("");
   const [formType, setFormType] = React.useState(-1);
@@ -175,7 +175,8 @@ const InspectionComponent = (props) => {
       method: "GET",
     };
     fetch(
-      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/audits?company=Nike",
+      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/audits?company=" +
+        user,
       requestOptions
     )
       .then((response) => response.json())
@@ -429,7 +430,7 @@ const InspectionComponent = (props) => {
               formData["reviewType"] = reviewType;
               formData["facility"] = facilitiesData[facility].facilityName;
               formData["company"] = company;
-              formData["entity_name"] = "Nike";
+              formData["entity_name"] = user;
               formData["audit_id"] = Number.parseInt(
                 Math.random() * 100000
               ).toString();
@@ -500,7 +501,7 @@ const InspectionComponent = (props) => {
               // formData["reviewType"] = reviewType;
               // formData["facility"] = facilitiesData[facility].facilityName;
               // formData["company"] = company;
-              // formData["entity_name"] = "Nike";
+              // formData["entity_name"] = user;
               // formData["audit_id"] = Number.parseInt(
               //   Math.random() * 100000
               // ).toString();

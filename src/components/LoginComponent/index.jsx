@@ -93,6 +93,7 @@ const LoginComponent = (props) => {
     if (user) {
       localStorage.setItem("facilitiesData", JSON.stringify([]));
       localStorage.setItem("inspectionForms", JSON.stringify([]));
+      localStorage.setItem("user", user.brand);
       history.push("/");
       // fetch(user.ordersData, { method: "GET" })
       //   .then((res) => res.json())

@@ -41,6 +41,7 @@ const InspectionFormComponent = (props) => {
   const [inspectionData, setInspectionData] = useState(
     JSON.parse(localStorage.getItem("inspectionForms"))
   );
+  const user = localStorage.getItem("user");
   const classes = useStyles();
   const [reviewType, setReviewType] = React.useState("");
   const [formType, setFormType] = React.useState("");
@@ -99,7 +100,8 @@ const InspectionFormComponent = (props) => {
       method: "GET",
     };
     fetch(
-      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/forms?company=Nike",
+      "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/forms?company=" +
+        user,
       requestOptions
     )
       .then((response) => response.json())
@@ -296,7 +298,7 @@ const InspectionFormComponent = (props) => {
               const formData = {};
               formData["formName"] = formName;
               formData["form_name"] = formName;
-              formData["form_creater"] = "Nike";
+              formData["form_creater"] = user;
               formData["formType"] = formType;
               formData["sections"] = Object.values(sectionData);
               console.log(formData);

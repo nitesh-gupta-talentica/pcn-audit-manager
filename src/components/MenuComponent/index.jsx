@@ -5,6 +5,7 @@ import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
@@ -175,6 +176,22 @@ export default function MenuComponent() {
             </ListItemIcon>
             <ListItemText primary={"Audit"} />
           </ListItem> */}
+        </List>
+        <Divider />
+        <List>
+          <ListItem
+            button
+            key={"Logout"}
+            onClick={() => {
+              localStorage.clear();
+              history.push("/login");
+            }}
+          >
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Logout"} />
+          </ListItem>
         </List>
       </Drawer>
       <main
