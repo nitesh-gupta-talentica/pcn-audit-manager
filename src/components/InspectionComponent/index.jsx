@@ -60,6 +60,8 @@ const InspectionComponent = (props) => {
   const [sections, setSections] = React.useState([]);
   const [score, setScore] = React.useState("");
   const [result, setResult] = React.useState("");
+  const [fdaApproved, setFdaApproved] = React.useState("");
+  const [fdaCertified, setFdaCertified] = React.useState("");
   const [coverageDays, setCoverageDays] = React.useState(0);
   const [notificationDays, setNotificationDays] = React.useState(0);
   const [sectionData, setSectionData] = React.useState({});
@@ -101,6 +103,15 @@ const InspectionComponent = (props) => {
   };
   const handleChangeAuditTeam = (event) => {
     setAuditTeam(event.target.value);
+  };
+
+  const handleFDAChange = (type, event) => {
+    if (type === "Approved") {
+      setFdaApproved(event);
+    }
+    if (type === "Certified") {
+      setFdaCertified(event);
+    }
   };
 
   const handleChangeFormType = (event) => {
@@ -293,7 +304,7 @@ const InspectionComponent = (props) => {
                 className={classes.formControl}
                 id="audit-name"
                 name="audit-name"
-                label="Inspection/Audit Team"
+                label="Inspection SME Team"
                 autoComplete="audit-name"
                 onChange={handleChangeAuditTeam}
               />
@@ -379,6 +390,30 @@ const InspectionComponent = (props) => {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={4}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="checkedC"
+                    onChange={(event) => {
+                      handleFDAChange("Approved", event.target.checked);
+                    }}
+                  />
+                }
+                label="FDA/FSIS Approved"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="checkedC"
+                    onChange={(event) => {
+                      handleFDAChange("Certified", event.target.checked);
+                    }}
+                  />
+                }
+                label="FDA/FSIS Certified"
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
               <TextField
                 required
                 value={coverageDays}
@@ -447,6 +482,8 @@ const InspectionComponent = (props) => {
               formData["result"] = result;
               formData["coverageDays"] = coverageDays;
               formData["notificationDays"] = notificationDays;
+              formData["fdaApproved"] = fdaApproved;
+              formData["fdaCertified"] = fdaCertified;
 
               console.log(formData);
 
@@ -616,6 +653,18 @@ const InspectionComponent = (props) => {
             ></AgGridColumn>
             <AgGridColumn
               field="result"
+              sortable={true}
+              filter={true}
+              resizable
+            ></AgGridColumn>
+            <AgGridColumn
+              field="fdaApproved"
+              sortable={true}
+              filter={true}
+              resizable
+            ></AgGridColumn>
+            <AgGridColumn
+              field="fdaCertified"
               sortable={true}
               filter={true}
               resizable

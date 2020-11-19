@@ -239,7 +239,7 @@ const LandingPageComponent = (props) => {
             <Grid item xs={12} sm={4}>
               <FormControl className={classes.formControl}>
                 <InputLabel id="demo-simple-select-label">
-                  Facility Contact Person
+                  Facility SME Team
                 </InputLabel>
                 <Input
                   value={formData.facilityContactPerson}
