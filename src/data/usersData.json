@@ -3,52 +3,62 @@
     {
       "email": "admin@nike.com",
       "name": "",
-      "brand": "Nike"
+      "brand": "Nike",
+      "group": "Nike"
     },
     {
       "email": "admin@pg.com",
       "name": "",
-      "brand": "PG"
+      "brand": "PG",
+      "group": "PG"
     },
     {
       "email": "admin@clorox.com",
       "name": "",
-      "brand": "Clorox"
+      "brand": "Clorox",
+      "group": "PG"
     },
     {
       "email": "admin@tillamook.com",
       "name": "",
-      "brand": "Tillamook"
+      "brand": "Tillamook",
+      "group": "PG"
     },
     {
       "email": "admin@kellogg.com",
       "name": "",
-      "brand": "Kellogg"
+      "brand": "Kellogg",
+      "group": "PG"
     },
     {
       "email": "admin@target.com",
       "name": "",
-      "brand": "target"
+      "brand": "target",
+      "group": "PG"
     },
     {
       "email": "admin@albertsons.com",
       "name": "",
-      "brand": "Albert Sons"
+      "brand": "Albert Sons",
+      "group": "PG"
     },
     {
       "email": "admin@coca-colacompany.com",
       "name": "",
-      "brand": "Coca Cola Company"
+      "brand": "Coca Cola Company",
+      "group": "PG"
     },
     {
       "email": "admin@smuckers.com",
       "name": "",
-      "brand": "Smuckers"
+      "brand": "Smuckers",
+      "group": "PG"
     },
     {
       "email": "admin@dole.com",
       "name": "",
-      "brand": "Dole"
+      "brand": "Dole",
+      "group": "PG"
     }
   ]
 }

@@ -74,6 +74,7 @@ const LoginComponent = (props) => {
   const onGetOrderData = (fileData, user) => {
     setDataFetched(dataFetched + 1);
     localStorage.setItem("brand", user.brand);
+    localStorage.setItem("group", user.group);
     localStorage.setItem("role", user.role);
     localStorage.setItem("managers", JSON.stringify(user.managers));
     localStorage.setItem("ordersData", JSON.stringify(fileData));
@@ -93,6 +94,7 @@ const LoginComponent = (props) => {
     if (user) {
       localStorage.setItem("facilitiesData", JSON.stringify([]));
       localStorage.setItem("inspectionForms", JSON.stringify([]));
+      localStorage.setItem("group", user.group);
       localStorage.setItem("user", user.brand);
       history.push("/");
       // fetch(user.ordersData, { method: "GET" })

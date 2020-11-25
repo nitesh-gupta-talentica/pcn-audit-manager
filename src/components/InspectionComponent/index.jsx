@@ -119,12 +119,11 @@ const InspectionComponent = (props) => {
     const formSectionsData = JSON.parse(
       JSON.stringify(inspectionForms[event.target.value].sections)
     );
-    console.log("formSectionsData", formSectionsData);
+
     setSections(formSectionsData);
   };
 
   const handleChangeForm = (section, questionId, key, value) => {
-    console.log("data....", section, questionId, key, value);
     const sectionsClone = JSON.parse(JSON.stringify(sections));
     sectionsClone[section].questions[questionId].questionData[key] = value;
     setSections(sectionsClone);
@@ -187,7 +186,7 @@ const InspectionComponent = (props) => {
     };
     fetch(
       "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/audits?company=" +
-        user,
+        localStorage.getItem("group"),
       requestOptions
     )
       .then((response) => response.json())
@@ -393,6 +392,7 @@ const InspectionComponent = (props) => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    checked={fdaApproved}
                     name="checkedC"
                     onChange={(event) => {
                       handleFDAChange("Approved", event.target.checked);
@@ -404,6 +404,7 @@ const InspectionComponent = (props) => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    checked={fdaCertified}
                     name="checkedC"
                     onChange={(event) => {
                       handleFDAChange("Certified", event.target.checked);
@@ -461,11 +462,16 @@ const InspectionComponent = (props) => {
                 alert("Please fill all required fields");
                 return;
               }
+              console.log(facility);
+              console.log(facilitiesData);
               const formData = {};
               formData["reviewType"] = reviewType;
-              formData["facility"] = facilitiesData[facility].facilityName;
+              formData["facility"] =
+                facilitiesData[
+                  facilitiesData.map((f) => f.facilityName).indexOf(facility)
+                ].facilityName;
               formData["company"] = company;
-              formData["entity_name"] = user;
+              formData["entity_name"] = localStorage.getItem("group");
               formData["audit_id"] = Number.parseInt(
                 Math.random() * 100000
               ).toString();
@@ -484,8 +490,6 @@ const InspectionComponent = (props) => {
               formData["notificationDays"] = notificationDays;
               formData["fdaApproved"] = fdaApproved;
               formData["fdaCertified"] = fdaCertified;
-
-              console.log(formData);
 
               const requestOptions = {
                 method: "POST",
@@ -556,11 +560,11 @@ const InspectionComponent = (props) => {
               // formData["coverageDays"] = coverageDays;
               // formData["notificationDays"] = notificationDays;
 
-              console.log(rowData);
               setReviewType(rowData.reviewType);
               setFormType(
                 inspectionForms.map((f) => f.formName).indexOf(rowData.formType)
               );
+
               setFacility(rowData.facility);
               setCompany(rowData.company);
               setAudit(rowData.audit);
@@ -575,6 +579,8 @@ const InspectionComponent = (props) => {
               setNotificationDays(rowData.notificationDays);
               setCoverageDays(rowData.coverageDays);
               setSectionData(rowData.sections);
+              setFdaApproved(rowData.fdaApproved);
+              setFdaCertified(rowData.fdaCertified);
 
               setOpenForm(true);
             }}

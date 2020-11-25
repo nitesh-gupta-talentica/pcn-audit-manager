@@ -122,7 +122,7 @@ const LandingPageComponent = (props) => {
     };
     fetch(
       "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/facilities?company=" +
-        user,
+        localStorage.getItem("group"),
       requestOptions
     )
       .then((response) => response.json())

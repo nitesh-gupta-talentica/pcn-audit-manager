@@ -101,7 +101,7 @@ const InspectionFormComponent = (props) => {
     };
     fetch(
       "https://9z3k7jzo2i.execute-api.us-west-2.amazonaws.com/prod/forms?company=" +
-        user,
+        localStorage.getItem("group"),
       requestOptions
     )
       .then((response) => response.json())
@@ -298,7 +298,7 @@ const InspectionFormComponent = (props) => {
               const formData = {};
               formData["formName"] = formName;
               formData["form_name"] = formName;
-              formData["form_creater"] = user;
+              formData["form_creater"] = localStorage.getItem("group");
               formData["formType"] = formType;
               formData["sections"] = Object.values(sectionData);
               console.log(formData);
