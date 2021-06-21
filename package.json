@@ -6,7 +6,7 @@
     "@date-io/date-fns": "^2.8.0",
     "@highcharts/map-collection": "^1.1.3",
     "@lourd/react-google-sheet": "^0.4.0",
-    "@material-ui/core": "^4.10.1",
+    "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.39",
     "@material-ui/pickers": "^3.2.10",
@@ -41,13 +41,14 @@
     "react-select": "^3.1.0",
     "react-table": "^7.2.2",
     "react-transition-group": "^4.4.1",
-    "swiper": "^5.4.5"
+    "swiper": "^5.4.5",
+    "use-state-with-callback": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "aws s3 sync build/ s3://pcn-procurement-manager --acl public-read",
+    "deploy": "aws s3 sync build/ s3://pcn-audit --acl public-read",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

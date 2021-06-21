@@ -5,6 +5,30 @@
 @import "styles/common";
 @import "styles/charts";
 
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+
+  color: white;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+
+  color: white;
+}
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+
+  color: white;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+
+  color: white;
+}
+
 body {
   box-sizing: border-box;
   margin: 0;
@@ -282,6 +306,6 @@ body {
 }
 
 .grid-main {
-  height: 400px;
-  width: "100vw";
+  height: 600px;
+  width: 100vw;
 }
